@@ -125,7 +125,7 @@ const PracticeAPI = () => {
                   </div>
                 </article>
               ))} */}
-              {Users.map((e) => {
+              {Users.map((e, i) => {
                 return (
                   <div key={i} className="p-6 rounded-lg shadow-md bg-white">
                     ---{" "}
