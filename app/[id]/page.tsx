@@ -4,7 +4,14 @@ import axios from "axios";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 
-const Page = ({ params }) => {
+// Define type for params
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+const Page: React.FC<PageProps> = ({ params }) => {
   const { id } = params;
 
   const [users, setUsers] = useState("");
