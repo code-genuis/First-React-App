@@ -1,53 +1,45 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState} from "react";
 import axios from "axios";
 
 const ImageGallery = () => {
-  const [image, setimage] = useState([]);
+  const [images, setImages] = useState([]); // Renamed 'image' to 'images' for clarity
 
-  // useEffect(() => { automatic call to getImages() on page load
-  //   getImages();
-  // }, []);
 
   const getImages = async () => {
     try {
       const response = await axios.get("https://picsum.photos/v2/list");
-      const data = response.data;
-      setimage(data);
+      setImages(response.data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching images:", error);
     }
   };
 
   return (
-    <>
-      <div className="flex bg-zinc-200 flex-col gap-4 items-center min-screen">
+    <div className="flex flex-col items-center min-h-screen bg-zinc-200 py-10">
+      <h1 className="text-3xl font-bold mb-6">Image Gallery</h1>
 
-        <div className="text-center mt-10">
-          <h1 className="text-2xl pt-6 pb-2 font-bold">Image Gallery</h1>
-
-          <div className="p-4 bg-slate-300 m-4 rounded-md columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-            {image.map((user, i) => (
-              <div key={i} className="break-inside-avoid mb-4 group relative">
-                <img
-                  title="image"
-                  src={user.download_url}
-                  className="w-full rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity rounded-lg" />
-              </div>
-            ))}
+      <div className="p-4 bg-slate-300 rounded-md columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+        {images.map((img, i) => (
+          <div key={i} className="break-inside-avoid mb-4 group relative">
+            <img
+              title="image"
+              src={img.download_url}
+              alt={`Random Image ${i + 1}`}
+              className="w-full rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity rounded-lg" />
           </div>
-
-          <button
-            onClick={getImages}
-            className="px-4 py-2 m-8 bg-orange-300 hover:bg-orange-200 rounded-md"
-          >
-            Get Images
-          </button>
-        </div>
+        ))}
       </div>
-    </>
+
+      <button
+        onClick={getImages}
+        className="mt-6 px-6 py-3 bg-orange-500 text-white text-lg rounded-lg shadow-md hover:bg-orange-400 transition-all"
+      >
+        Refresh Images
+      </button>
+    </div>
   );
 };
 
