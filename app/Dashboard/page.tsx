@@ -3,11 +3,6 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 
-// ✅ ImageGallery ko dynamically import karo SSR disable karne ke liye
-const ImageGallery = dynamic(() => import("@/components/ImageGallery"), {
-  ssr: false,
-});
-
 const Page = () => {
   const [marks, setMarks] = useState("?");
   const [user2, setUser2] = useState("Abdullah");
@@ -57,9 +52,6 @@ const Page = () => {
           Update
         </button>
       </div>
-
-      {/* ✅ Dynamically imported component */}
-      <ImageGallery />
     </>
   );
 };
