@@ -1,6 +1,12 @@
-"use client";
+"use client"; // ✅ Client Component
+
 import React, { useState } from "react";
-import ImageGallery from "@/components/ImageGallery";
+import dynamic from "next/dynamic";
+
+// ✅ ImageGallery ko dynamically import karo SSR disable karne ke liye
+const ImageGallery = dynamic(() => import("@/components/ImageGallery"), {
+  ssr: false,
+});
 
 const Page = () => {
   const [marks, setMarks] = useState("?");
@@ -12,13 +18,13 @@ const Page = () => {
   const changeHandle = () => {
     if (tempMarks) setMarks(tempMarks);
     if (tempUser) setUser2(tempUser);
-    setTempMarks(""); // Clear input after update
-    setTempUser(""); // Clear input after update
+    setTempMarks(""); // ✅ Clear input after update
+    setTempUser(""); // ✅ Clear input after update
   };
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center h-screen gap-3">
+      <div className="flex flex-col items-center justify-center min-h-screen gap-3">
         <h1 className="text-2xl font-bold text-orange-600">
           <span className="text-stone-600">{user2}</span> has marks:
           <span className="text-stone-600"> {marks}</span>
@@ -51,6 +57,8 @@ const Page = () => {
           Update
         </button>
       </div>
+
+      {/* ✅ Dynamically imported component */}
       <ImageGallery />
     </>
   );
