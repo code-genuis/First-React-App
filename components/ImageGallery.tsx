@@ -1,6 +1,7 @@
 "use client";
 import React, { useState} from "react";
 import axios from "axios";
+// import Image from "next/image";
 
 const ImageGallery = () => {
   const [images, setImages] = useState([]); // Renamed 'image' to 'images' for clarity
@@ -23,10 +24,11 @@ const ImageGallery = () => {
         {images.map((img, i) => (
           <div key={i} className="break-inside-avoid mb-4 group relative">
             <img
-              title="image"
               src={img.download_url}
-              alt={`Random Image ${i + 1}`}
-              className="w-full rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105"
+              alt={`Image ${i + 1}`}
+              width={300} // ✅ Set proper width & height for Next.js Image optimization
+              height={200}
+              className="w-full h-auto rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity rounded-lg" />
           </div>
